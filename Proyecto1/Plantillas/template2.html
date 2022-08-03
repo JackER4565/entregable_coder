@@ -1,0 +1,146 @@
+{% extends "padre.html" %}
+{% block title %}Ejercicios{% endblock %}
+{% block content %}
+    <input id="index" type="button" onclick="indexHome()" value="INDEX">
+    <div id="hoy"><h1>Hoy es: {{hoy}}</h1></div>
+
+    <table class="padre">
+        <tr>
+            <td style="width: 33%;">
+        <table >
+            <tr>
+                <td>
+                    <h3>Item</h3>
+                </td>
+                <td>
+                    <h3>Nombre</h3>
+                </td>
+                <td>
+                    <h3>Relacion</h3>
+                </td>
+                <td>
+                    <h3>Fecha</h3>
+                </td>
+                <td>
+                    <h3>Delete?</h3>
+                </td>
+            </tr> 
+        {% for item in objs %}
+        <tr>
+            <td>{{ item.id }}</td> 
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.relacion }}</td>
+            <td>{{ item.fecha }}</td>
+            <td><input type="button" onclick="delfunction('{{ item.id }}')" value="Borrar" /></td>
+        </tr>
+        {% endfor %}
+        </table>
+        <table>
+        <tr>
+            <td><h3>Nombre</h3></td>
+            <td><h3>Relacion</h3></td>
+            <td><h3>Fecha</h3></td>
+            <td><h3>Agregar</h3></td>
+        </tr>
+        <tr>
+            <td>
+                <input id="Nombre" type="text"/>
+            </td>
+            <td>
+                <input id="Relacion" type="number"/>
+            </td>
+            <td>
+                <input id="Fecha" type="date"/>
+            </td>
+            <td>
+                <input id="submit" onclick="addfunction()" type="submit" value="Agregar" />
+            </td>
+        </tr>
+        </table>
+        <table>
+          <tr><td>Relacion:</td></tr>
+            <tr><td> 1 = cercano </td></tr>
+            <tr><td> 2 = lejano </td></tr>
+            <tr><td> 3 = otro </td></tr>
+            </tr>
+        </table>
+    </td>
+    <td style="width: 33%;">
+        <table><tr><td>
+    <h1> Formulario - POST </h1>
+    <h2> Agregar a base de datos</h2>
+    {% if miForm.errors %}
+        <p style="color: red;"> Estan mal los datos, revisar</p>
+    {% endif %}
+
+    <form action="" method="POST"> {% csrf_token %}
+
+        <table>
+
+            {{ miForm.as_table }}
+
+        </table>
+        <br>
+        <center><input type="submit" value="Enviar"></center>
+
+    </form>
+    {% if forma %}
+        <p> Guardado: {{forma}}</p>
+    {% endif %}
+</td></tr></table>
+</td>
+<td style="width: 33%;">
+    <table><tr><td>
+        <h1>Method GET</h1>
+        <H2>Buscar en base de datos</H2>
+    <form action="" method="GET"> {% csrf_token %}
+        <label>Num de camada: </label>
+        <input type="number" name="camada" id="camada">
+        <br><br>
+        <center><input type="submit" value="BUSCAR">
+        <input type="button" onclick="verDB()" value="Ver DB">
+    </form>
+    {% if cursos %}
+    <p>Buscando: {{camada}}</p>
+    <table>
+        {% if cursos == "placeholder" %}
+            <tr><td>Sin Reusltado</td></tr>
+        {% endif %}
+        {% for curso in cursos %}
+        <tr>
+        <td>
+            {{curso.nombre}}
+        </td>
+        <td>
+            {{curso.camada}}
+        </td></tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</td></tr></table>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+    function delfunction(id) {
+
+        window.location.href = window.location.origin + "/delpariente/" + id
+      }
+      function addfunction() {
+        var nombre = document.getElementById("Nombre").value;
+        if (nombre == ""){ return alert("Nombre esta vacio")}
+        var relacion = document.getElementById("Relacion").value;
+        if (relacion == ""){ return alert("Relacion esta vacio")}
+        var fecha = document.getElementById("Fecha").value;
+        if (fecha == ""){ return alert("Fecha esta vacio")}
+        var result = nombre + "|" + relacion + "|" + fecha;
+        window.location.href = window.location.origin + "/addpariente/" + result
+      }
+      function verDB(){
+        window.location.href = window.location.origin + "/verdb/"
+      }
+      function indexHome(){
+        window.location.href = window.location.origin
+      }
+</script>
+{% endblock %}

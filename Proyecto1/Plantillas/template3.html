@@ -1,0 +1,22 @@
+{% extends "padre.html" %}
+{% block title %}Visualizar Base de datos{% endblock %}
+{% block content %}
+<table>
+{% if objsdb %}
+<tr>
+    <td><h2>Item ID</h2></td>
+    <td><h2>Item Nombre</h2></td>
+    <td><h2>Item Camada</h2></td>
+</tr>
+{% for item in objsdb %}
+<tr>
+    <td>{{ item.id }}</td> 
+    <td>{{ item.nombre }}</td>
+    <td>{{ item.camada }}</td>
+</tr>
+{% endfor %}
+
+{% endif %}
+</table>
+<center><input type="button" onclick="window.location.href = window.location.origin;" value="Regresar" style="width: 80%; height: 50px;"></center>
+{% endblock %}

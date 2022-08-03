@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    test
+
+    <p style="color:red">Mi nombre es: {{var1}}</p></body>
+
+    <h1>Hoy es: {{hoy}}</h1>
+
+    <p>
+        {% for n in lista1 %}
+        {% if n < 4 %}
+            <p style="color: red">{{n}}</p>
+        {% else %} <p style="color: blue">{{n}}</p>
+        {% endif %}
+
+        {% endfor %}
+    </p>
+</html>
