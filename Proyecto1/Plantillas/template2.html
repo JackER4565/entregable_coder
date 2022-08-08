@@ -95,7 +95,7 @@
         <H2>Buscar en base de datos</H2>
     <form action="" method="GET"> {% csrf_token %}
         <label>Num de camada: </label>
-        <input type="number" name="camada" id="camada">
+        <input type="number" name="camada" id="camada" required>
         <br><br>
         <center><input type="submit" value="BUSCAR">
         <input type="button" onclick="verDB()" value="Ver DB">

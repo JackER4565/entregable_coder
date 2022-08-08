@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.shortcuts import render, redirect
-from MiAplicacion.models import Pariente, Curso
+from MiAplicacion.models import Pariente, Curso, Tercera
 from django.http import HttpResponse
 from MiAplicacion.forms import Formulario
 
@@ -18,6 +18,9 @@ def alltables(request):
             info = miForm.cleaned_data
             curso = Curso (nombre = info['nombre'], camada = info['camada'])
             curso.save()
+            e = datetime.now().strftime("%Y-%m-%d")
+            tercera = Tercera(datochar = info["nombre"], datoint = info["camada"], datofecha = e)
+            tercera.save()
             dictionario["forma"] = info
     if request.method == 'GET':
         camada = request.GET.get('camada', False)
